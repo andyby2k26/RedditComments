@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  db:
+    #container_name: reddit-postgres
+    image: postgres:alpine
+    environment:
+      - POSTGRES_USER=myuser
+      - POSTGRES_PASSWORD=mypassword
+    volumes:
+      - ./postgres/data:/var/lib/postgresql/data
+      - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+
+  reddit-producer:
+    #container_name: reddit-producer
+    build:
+      context: ./reddit_producer
+      dockerfile: dockerfile
+    depends_on:
+      - db
+    volumes:
+      - ./reddit_producer:/app
+    links:
+      - db
+
+    
+
