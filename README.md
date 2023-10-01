@@ -12,6 +12,7 @@ The Reddit Comments Pipeline is designed to collect comments from Reddit using t
 
 To setup the pipeline locally, first you will have to add a config file for accessing reddit API, and with details for the Postgres database. II chose to do this with an accompanying config.py file, however storing as json or using a config parser are alternative options. The config.py file which i used following this template:
 
+```python
 class Reddit():
     client_id = 'client_id'
     client_secret = 'client_secret'
@@ -23,6 +24,7 @@ class Postgres():
     username = 'myuser'
     pwd = 'mypassword'
     port_id = '5432'
+```
 
 ## Running
 
@@ -31,7 +33,7 @@ Once Docker is installed, it should be as simple as running the following docker
 docker-compose up -d
 
 
-# TO-DO / improvements 
+# To-Do / improvements 
 - Add looping/threading mechanism to the reddit_producer script which allows multiple subreddits to be streamed concurrently
 - Add wait and retry logic to database connection to avoid issues when python script tries to initial when Postgres has not completed setup (this happens regardless of docker-compose depends_on setting)
 - Build in more data sources and model with dbt
